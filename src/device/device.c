@@ -610,8 +610,7 @@ void isr_usbctrl() {
 
 // ==[ Main ]==================================================================
 
-int main() {
-    stdio_init_all();
+void setup() {
     printf("\033[2J\033[H\n==[ USB device example]==\n\n");
     usb_device_reset();
 
@@ -623,7 +622,9 @@ int main() {
 
     // Prepare for up to 64 bytes from host on EP1_OUT
     usb_start_transfer(usb_get_endpoint(EP1_OUT_ADDR), NULL, 64);
+}
 
+void loop() {
     // Everything is interrupt driven so just loop here
-    while (1) { tight_loop_contents(); }
+    tight_loop_contents();
 }

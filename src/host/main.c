@@ -665,7 +665,7 @@ static uint16_t interface_len(usb_interface_descriptor_t *ifd,
 }
 
 // Parse a configuration descriptor and enable drivers for each interface
-bool enable_drivers(endpoint_t *ep) {
+void enable_drivers(endpoint_t *ep) {
     usb_configuration_descriptor_t *cfd; // Configuration descriptor
     usb_interface_descriptor_t     *ifd; // Interface descriptor
 
@@ -985,6 +985,7 @@ SDK_INLINE const char *callback_name(void (*fn) (void *)) {
     if (fn == enumerate   ) return "enumerate";
     if (fn == transfer_zlp) return "transfer_zlp";
     printf("Calling unknown callback function\n");
+    return "";
 }
 
 void usb_task() {
@@ -1252,14 +1253,14 @@ void isr_usbctrl() {
 
 // ==[ Main ]===================================================================
 
-int main() {
-    stdout_uart_init();
+void setup() {
     printf("\033[2J\033[H\n==[ USB host example]==\n\n");
     setup_usb_host();
 
     queue_init(queue, sizeof(task_t), 64);
-
-    while (1) {
-        usb_task();
-    }
 }
+
+void loop() {
+    usb_task();
+}
+
