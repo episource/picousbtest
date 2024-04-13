@@ -1,0 +1,7 @@
+{
+  "name": "CustomTinyUSB",
+  "build": {
+    "srcDir": "./tinyusb/src",
+    "flags": "-D"
+  }
+}
